@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.schemas import ScreenRequest, ScreenResponse, Verdict
+from app.pipeline import run_pipeline
 
 app = FastAPI(title="PromptShield", version="0.1.0")
 
@@ -9,6 +10,6 @@ async def health():
 
 @app.post("/screen", response_model=ScreenResponse)
 async def screen(req: ScreenRequest):
-    return ScreenResponse(verdict=Verdict.allow, score=0.0, reasons=[])
+    return await run_pipeline(req.prompt)
 
     
