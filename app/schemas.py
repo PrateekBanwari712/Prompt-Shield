@@ -16,3 +16,8 @@ class ScreenResponse(BaseModel):
     verdict: Verdict
     score: float = Field(..., ge=0.0, le=1.0)
     reasons: list[str] = []
+
+
+class DetectorResult(BaseModel):
+    score: float = 0.0
+    reasons: list[str] = []

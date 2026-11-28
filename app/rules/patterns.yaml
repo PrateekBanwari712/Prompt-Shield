@@ -1,0 +1,54 @@
+- id: ignore_previous
+  category: instruction_override
+  weight: 0.9
+  pattern: '\b(ignore|disregard|forget|override)\b.{0,30}\b(previous|prior|above|earlier|all|any|your)\b.{0,30}\b(instructions?|rules?|prompts?|guidelines?|directions?)\b'
+
+- id: new_instructions
+  category: instruction_override
+  weight: 0.6
+  pattern: '\b(new|updated|revised)\s+(system\s+)?instructions?\s*:'
+
+- id: reveal_system_prompt
+  category: system_prompt_extraction
+  weight: 0.9
+  pattern: '\b(print|show|reveal|repeat|output|display|tell me|what (is|are|were))\b.{0,40}\b(system|initial|hidden|original)\s+(prompt|instructions?|message)'
+
+- id: repeat_above
+  category: system_prompt_extraction
+  weight: 0.7
+  pattern: '\brepeat\b.{0,20}\b(everything|text|words?)\b.{0,20}\b(above|before)\b'
+
+- id: dan_persona
+  category: role_play_jailbreak
+  weight: 0.8
+  pattern: '(?-i:\bDAN\b)|\bdo anything now\b'
+
+- id: no_restrictions
+  category: role_play_jailbreak
+  weight: 0.8
+  pattern: '\b(you are|you''re|act as|pretend (to be|you are))\b.{0,40}\b(no|without|free (of|from))\s+(any\s+)?(restrictions?|rules?|limits?|filters?|guidelines?)'
+
+- id: special_mode
+  category: role_play_jailbreak
+  weight: 0.6
+  pattern: '\b(developer|debug|god|jailbreak|admin)\s+mode\b'
+
+- id: fake_delimiters
+  category: delimiter_injection
+  weight: 0.7
+  pattern: '</?\s*(system|assistant|instructions?)\s*>|\[/?(system|inst)\]|<\|im_(start|end)\|>'
+
+- id: fake_header
+  category: delimiter_injection
+  weight: 0.5
+  pattern: '#{2,}\s*(new\s+)?(system\s+)?(prompt|instructions?)'
+
+- id: fake_chat_turn
+  category: delimiter_injection
+  weight: 0.5
+  pattern: '^\s*(system|assistant)\s*:'
+
+- id: exfiltrate_to_email
+  category: indirect_injection
+  weight: 0.5
+  pattern: '\b(forward|send|email)\b.{0,60}\bto\b.{0,40}[\w.+-]+@[\w-]+\.[\w.]+'

@@ -92,7 +92,6 @@ def main(split=None, layer: str | None = None):
     )
 
     print(f"Split: {split or 'all'} | attacks={len(attacks)} benign={len(benign)}")
-    print(f"Split: {split or 'all'} | attacks={len(attacks)}")
     print(f"Attack success rate : {asr:.1%}")
     print(f"Recall (attacks caught): {recall:.1%}")
     print(f"Precision           : {precision:.1%}")
